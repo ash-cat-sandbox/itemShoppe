@@ -1,18 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./styles.css">
-    <title>Specialty Shoppe</title>
+    <title>Item Shoppe</title>
 </head>
 <body>
     <div id="game">
-        <div id="location">
-            
+        <div id="stats">
+            <span class="stat">Charisma Level: <strong><span id="charismaText">0</span></strong></span>
+            <span class="stat">Health: <strong><span id="healthText">100</span></strong></span>
+            <span class="stat">Gold: <strong><span id="goldText">50</span></strong></span>
+            <span class="stat">Weight: <strong><span id="weightText">0 lbs</span></strong></span>
         </div>
-
+        <div id="controls">
+            <button id="button1">Open your store</button>
+            <button id="button2">Go to Forest</button>
+            <button id="button3">Go to Market</button>
+            <button id="button4">Look at Inventory Storage</button>
+        </div>
+        <div id="monsterStats">
+            <span class="stat">Monster Name: <strong><span id="monsterName"></span></strong></span>
+            <span class="stat">Health: <strong><span id="monsterHealth"></span></strong></span>
+        </div>
+        <div id="text">
+            You own a shop. Ye Olde Item Shoppe. Point is, you want to make some money. You can get items to sell
+            by either fighting monsters and collecting loot, or by buying items in the Market for low prices and sell
+            for high. Using the market will require you to watch the trends and listen to townsfolk gossip to see
+            what classes of items are in demand. 
+        </div>
     </div>
-    
     <script src="./script.js"></script>
 </body>
 </html>
