@@ -5,6 +5,10 @@ let selfInventory = ['Leather Vest', 'Wheat Loaf', 'Apple'];
 let storageInventory = [];
 let weapons = [];
 let currentWeapon = 0;
+let _html = "";
+for (let i = 0; i < selfInventory.length; i++) {
+  _html += selfInventory[i] + "<br>";
+}
 
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector('#button2');
@@ -18,12 +22,15 @@ const goldText = document.querySelector('#goldText');
 const monsterStats = document.querySelector('#monsterStats');
 const monsterName = document.querySelector('#monsterName');
 const monsterHealthText = document.querySelector('#monsterHealth');
+const inventoryList = document.querySelector("#invText").innerHTML = _html;
+
+
 
 const locations = [
     {
         name: "town square",
         "button text": ["Open your store", "Go to forest", "Go to the Market", "Go to the Warehouse"],
-        "button functions": [goStore, goCave, fightDragon, goWarehouse],
+        "button functions": [goStore, goForest, fightDragon, goWarehouse],
         text: "You are in the town square. You see a sign that says \"Store\" - oh wait, that's your store."
     },
     {
@@ -36,12 +43,12 @@ const locations = [
         name: "forest",
         "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
         "button functions": [fightSlime, fightBeast, goTown, goWarehouse],
-        text: "You enter the cave. You see some monsters."
+        text: "You enter the Forest. You see some monsters."
     },
     {
       name: "warehouse",
       "button text": ["List Storage items", "Take from Storage", "Add to Storage", "Go to Town Square"],
-      "button functions": [listStorage, restart, restart, goTown],
+      "button functions": [listStorage, restart, addStorage, goTown],
       text: "You enter the warehouse where you store your goods."
     },
     {
@@ -78,7 +85,7 @@ const locations = [
 
 // initialize buttons
 button1.onclick = goStore;
-button2.onclick = goCave;
+button2.onclick = goForest;
 button3.onclick = fightDragon;
 button4.onclick = goWarehouse;
 buttonInv.onclick = listInventory;
@@ -104,7 +111,7 @@ function goStore() {
   update(locations[1]);
 }
 
-function goCave() {
+function goForest() {
   update(locations[2]);
 }
 
@@ -126,6 +133,11 @@ function listInventory() {
   } else {
    text.innerText = "You have these items in your personal inventory: " + selfInventory;
   }
+}
+
+function addStorage() {
+  //TODO make visible checkbox check box of self inventory add to storageInventory
+
 }
 
 
