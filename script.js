@@ -10,6 +10,7 @@ const button1 = document.querySelector('#button1');
 const button2 = document.querySelector('#button2');
 const button3 = document.querySelector('#button3');
 const button4 = document.querySelector('#button4');
+const buttonInv = document.querySelector('#buttonInv');
 const text    = document.querySelector('#text');
 const charismaText = document.querySelector('#charismaText');
 const healthText   = document.querySelector('#healthText');
@@ -80,6 +81,7 @@ button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 button4.onclick = goWarehouse;
+buttonInv.onclick = listInventory;
 
 function update(location) {
   monsterStats.style.display = "none";
@@ -119,7 +121,11 @@ function listStorage() {
 }
 
 function listInventory() {
-  text.innerText = selfInventory;
+  if (selfInventory.length === 0) {
+    text.innerText = "You don't have anything in your inventory! What are you wearing??"
+  } else {
+   text.innerText = "You have these items in your personal inventory: " + selfInventory;
+  }
 }
 
 
