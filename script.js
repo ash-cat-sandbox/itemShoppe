@@ -27,6 +27,8 @@ const generateCheckboxes = () => {
     // Create a line break
     const lineBreak = document.createElement('br');
 
+    checkboxInv.addEventListener('change', handleCheckboxChange);
+
     fragment.appendChild(checkboxInv);
     fragment.appendChild(chkLabel);
     fragment.appendChild(lineBreak);
@@ -40,13 +42,16 @@ const handleCheckboxChange = (event) => {
   const value = event.target.value;
   if (event.target.checked) {
     checkedItems.push(value);
+    console.log(`Item ${value} checked:`, checkedItems);
   } else {
     const index = checkedItems.indexOf(value);
     if (index !== -1) {
       checkedItems.splice(index, 1);
+      console.log(`Item ${value} unchecked:`, checkedItems);
     }
   }
 };
+
 generateCheckboxes();
 
 const button1 = document.querySelector('#button1');
@@ -128,15 +133,23 @@ button4.onclick = goWarehouse;
 buttonInv.onclick = listInventory;
 
 function update(location) {
+  const buttonFunctions = location["button functions"];
+
   monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
   button2.innerText = location["button text"][1];
   button3.innerText = location["button text"][2];
   button4.innerText = location["button text"][3];
-  button1.onclick = location["button functions"][0];
-  button2.onclick = location["button functions"][1];
-  button3.onclick = location["button functions"][2];
-  button4.onclick = location["button functions"][3];
+  button1.onclick = buttonFunctions[0];
+  button2.onclick = buttonFunctions[1];
+  button3.onclick = buttonFunctions[2];
+  button4.onclick = buttonFunctions[3];
+
+  if (location.name === 'warehouse') {
+    button4.removeEventListener('click', goWarehouse); // Remove the existing listener
+    button4.addEventListener('click', addStorage); // Add the specific listener for warehouse
+  }
+
   text.innerText = location.text;
 }
 
@@ -196,22 +209,31 @@ function addStorage() {
 
 function moveCheckedItems() {
   const inventoryList = document.querySelector('#selfInvList');
-  const storageList = document.querySelector('#newInvList');
-  for (const item of checkedItems) {
-    const index = selfInventory.indexOf(item);
-    if (index !== -1) {
-      const removedItem = selfInventory.splice(index, 1)[0];
-      storageInventory.push(removedItem);
 
-      // Create a new div for the item in the storage list
-      const listItem = document.createElement('div');
-      listItem.textContent = removedItem;
-      storageList.appendChild(listItem);
+  checkedItems.forEach((item) => {
+    const checkbox = inventoryList.querySelector(`input[value="${item}"]`);
+    if (checkbox) {
+      const listItem = checkbox.parentElement;
+      const storageList = document.querySelector('#newInvList');
+      
+      listItem.removeChild(checkbox); // Remove the checkbox
+      storageList.appendChild(listItem.cloneNode(true)); // Clone and add to storage list
+
+      const index = selfInventory.indexOf(item);
+      if (index !== -1) {
+        selfInventory.splice(index, 1);
+      }
     }
-  }
-  checkedItems = [];
+  });
 
+  checkedItems.length = 0; // Empty the checked items array after processing
 }
+
+
+
+
+
+
 
 function buyHealth() {
   if (gold >= 10) {
