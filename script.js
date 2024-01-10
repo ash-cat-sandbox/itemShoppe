@@ -2,13 +2,52 @@ let charisma = 0;
 let health = 100;
 let gold = 50;
 let selfInventory = ['Leather Vest', 'Wheat Loaf', 'Apple'];
+let checkedItems = [];
 let storageInventory = [];
 let weapons = [];
 let currentWeapon = 0;
 let _html = "";
-for (let i = 0; i < selfInventory.length; i++) {
-  _html += selfInventory[i] + "<br>";
-}
+
+const generateCheckboxes = () => {
+  const fragment = document.createDocumentFragment();
+
+
+  for (let i = 0; i < selfInventory.length; i++) {
+    //create checkbox input element
+    const checkboxInv = document.createElement('input');
+    checkboxInv.type = 'checkbox';
+    checkboxInv.id = `item${i}`;
+    checkboxInv.value = selfInventory[i];
+
+    // Create a label for the checkbox
+    const chkLabel = document.createElement('label');
+    chkLabel.htmlFor = `item${i}`;
+    chkLabel.appendChild(document.createTextNode(selfInventory[i]));
+
+    // Create a line break
+    const lineBreak = document.createElement('br');
+
+    fragment.appendChild(checkboxInv);
+    fragment.appendChild(chkLabel);
+    fragment.appendChild(lineBreak);
+  }
+const inventoryList = document.querySelector("#selfInvList");
+// Append the fragment containing checkboxes to the selfInvList div
+inventoryList.appendChild(fragment);
+};
+
+const handleCheckboxChange = (event) => {
+  const value = event.target.value;
+  if (event.target.checked) {
+    checkedItems.push(value);
+  } else {
+    const index = checkedItems.indexOf(value);
+    if (index !== -1) {
+      checkedItems.splice(index, 1);
+    }
+  }
+};
+generateCheckboxes();
 
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector('#button2');
@@ -22,8 +61,6 @@ const goldText = document.querySelector('#goldText');
 const monsterStats = document.querySelector('#monsterStats');
 const monsterName = document.querySelector('#monsterName');
 const monsterHealthText = document.querySelector('#monsterHealth');
-const inventoryList = document.querySelector("#invText").innerHTML = _html;
-
 
 
 const locations = [
@@ -120,26 +157,61 @@ function goWarehouse() {
 }
 
 function listStorage() {
+  const storageList = document.querySelector('#newInvList');
+  storageList.innerHTML = ''; //clear the current content
+
   if (storageInventory.length === 0) {
-    text.innerText = "You don't have anything in storage!"
+    storageList.innerText = "You don't have anything in storage!";
   } else {
-   text.innerText = "You have these items in your warehouse: " + storageInventory;
+   storageInventory.forEach((item, index) => {
+    const listItem = document.createElement('div');
+    listItem.textContent = `${index +1}. ${item}`;
+    storageList.appendChild(listItem);
+   });
   }
 }
 
 function listInventory() {
+  const inventoryList = document.querySelector('#selfInvList');
+  inventoryList.innerHTML = ''; //Clear the current content
+
   if (selfInventory.length === 0) {
-    text.innerText = "You don't have anything in your inventory! What are you wearing??"
+    inventoryList.innerText = "You don't have anything in your inventory! What are you wearing??";
   } else {
-   text.innerText = "You have these items in your personal inventory: " + selfInventory;
+   selfInventory.forEach((item, index) => {
+    const listItem = document.createElement('div');
+    listItem.textContent = `${index +1}. ${item}`;
+    inventoryList.appendChild(listItem);
+   });
   }
 }
 
 function addStorage() {
-  //TODO make visible checkbox check box of self inventory add to storageInventory
+  //TODO When I checkbox an item, and then press a button, 
+  //i want it to remove it from one list and add it to another
+  //for item in inventoryList
+  moveCheckedItems();
 
 }
 
+function moveCheckedItems() {
+  const inventoryList = document.querySelector('#selfInvList');
+  const storageList = document.querySelector('#newInvList');
+  for (const item of checkedItems) {
+    const index = selfInventory.indexOf(item);
+    if (index !== -1) {
+      const removedItem = selfInventory.splice(index, 1)[0];
+      storageInventory.push(removedItem);
+
+      // Create a new div for the item in the storage list
+      const listItem = document.createElement('div');
+      listItem.textContent = removedItem;
+      storageList.appendChild(listItem);
+    }
+  }
+  checkedItems = [];
+
+}
 
 function buyHealth() {
   if (gold >= 10) {
