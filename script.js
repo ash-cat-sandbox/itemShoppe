@@ -202,20 +202,30 @@ function moveCheckedItems() {
 
   checkedItems.forEach((item) => {
     const checkbox = inventoryList.querySelector(`input[value="${item}"]`);
+    console.log(checkbox.value)
 
     if (checkbox) {
-      // Clone the checkbox for storage list
+      // Create a label for the checkbox
+      const label = checkbox.nextElementSibling;
+
+      // Clone the checkbox for the storage list
       const clonedCheckbox = document.createElement('input');
       clonedCheckbox.type = 'checkbox';
       clonedCheckbox.value = item;
 
-      // Remove the checkbox from the original list item
-      checkbox.parentElement.removeChild(checkbox);
+      // Clone the label for the cloned checkbox
+      const clonedLabel = document.createElement('label');
+      clonedLabel.htmlFor = `clonedItem${item}`;
+      clonedLabel.appendChild(document.createTextNode(item));
 
-      // Append the cloned checkbox to the storage list
+      // Remove both the checkbox and the label from the original list item
+      checkbox.parentElement.removeChild(checkbox);
+      label.parentElement.removeChild(label);
+
+      // Append the cloned checkbox and label to the storage list
       const listItem = document.createElement('div');
       listItem.appendChild(clonedCheckbox);
-      listItem.appendChild(document.createTextNode(item));
+      listItem.appendChild(clonedLabel);
       storageList.appendChild(listItem);
 
       const index = selfInventory.indexOf(item);
@@ -229,6 +239,7 @@ function moveCheckedItems() {
 
   checkedItems.length = 0; // Empty the checked items array after processing
 }
+
 
 function listStorage() {
   const storageList = document.querySelector('#newInvList');
