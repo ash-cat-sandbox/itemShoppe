@@ -8,7 +8,9 @@ let weapons = [];
 let currentWeapon = 0;
 let _html = "";
 
+//Arrow function - anonymous function good for callbacks and event handlers
 const generateCheckboxes = () => {
+  // Create a document fragment to hold checkboxes before appending to the DOM
   const fragment = document.createDocumentFragment();
 
 
@@ -169,20 +171,7 @@ function goWarehouse() {
   update(locations[3]);
 }
 
-function listStorage() {
-  const storageList = document.querySelector('#newInvList');
-  storageList.innerHTML = ''; //clear the current content
 
-  if (storageInventory.length === 0) {
-    storageList.innerText = "You don't have anything in storage!";
-  } else {
-   storageInventory.forEach((item, index) => {
-    const listItem = document.createElement('div');
-    listItem.textContent = `${index +1}. ${item}`;
-    storageList.appendChild(listItem);
-   });
-  }
-}
 
 function listInventory() {
   const inventoryList = document.querySelector('#selfInvList');
@@ -209,18 +198,40 @@ function addStorage() {
 
 function moveCheckedItems() {
   const inventoryList = document.querySelector('#selfInvList');
+  const storageList = document.querySelector('#newInvList');
 
   checkedItems.forEach((item) => {
     const checkbox = inventoryList.querySelector(`input[value="${item}"]`);
+    console.log(checkbox.value)
+
     if (checkbox) {
-      const listItem = checkbox.parentElement;
-      const storageList = document.querySelector('#newInvList');
-      
-      listItem.removeChild(checkbox); // Remove the checkbox
-      storageList.appendChild(listItem.cloneNode(true)); // Clone and add to storage list
+      // Create a label for the checkbox
+      const label = checkbox.nextElementSibling;
+
+      // Clone the checkbox for the storage list
+      const clonedCheckbox = document.createElement('input');
+      clonedCheckbox.type = 'checkbox';
+      clonedCheckbox.value = item;
+
+      // Clone the label for the cloned checkbox
+      const clonedLabel = document.createElement('label');
+      clonedLabel.htmlFor = `clonedItem${item}`;
+      clonedLabel.appendChild(document.createTextNode(item));
+
+      // Remove both the checkbox and the label from the original list item
+      checkbox.parentElement.removeChild(checkbox);
+      label.parentElement.removeChild(label);
+
+      // Append the cloned checkbox and label to the storage list
+      const listItem = document.createElement('div');
+      listItem.appendChild(clonedCheckbox);
+      listItem.appendChild(clonedLabel);
+      storageList.appendChild(listItem);
 
       const index = selfInventory.indexOf(item);
+
       if (index !== -1) {
+        // Remove the item from the selfInventory array
         selfInventory.splice(index, 1);
       }
     }
@@ -230,9 +241,27 @@ function moveCheckedItems() {
 }
 
 
+function listStorage() {
+  const storageList = document.querySelector('#newInvList');
+  storageList.innerHTML = ''; // Clear the current content
 
+  if (selfInventory.length === 0) {
+    storageList.innerText = "You don't have anything in storage!";
+  } else {
+    selfInventory.forEach((item, index) => {
+      const listItem = document.createElement('div');
+      listItem.textContent = `${index + 1}. ${item}`;
 
+      // Create a checkbox for each item in the storage list
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.value = item;
+      listItem.appendChild(checkbox);
 
+      storageList.appendChild(listItem);
+    });
+  }
+}
 
 
 function buyHealth() {
