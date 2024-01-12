@@ -8,8 +8,21 @@ let weapons = [];
 let currentWeapon = 0;
 let _html = "";
 
+
+function makeSelfInvVisible() {
+  // Get Elements by ID
+  const invText = document.getElementById('invText');
+
+  // Set the display property to 'block' to make visible
+  invText.style.display = 'block';
+}
+
+function makeStorageInvVisible() {
+  const storageText = document.getElementById('storageText');
+  storageText.style.display = 'block';
+}
 //Arrow function - anonymous function good for callbacks and event handlers
-const generateCheckboxes = () => {
+const generateCheckboxesSelfInv = () => {
   // Create a document fragment to hold checkboxes before appending to the DOM
   const fragment = document.createDocumentFragment();
 
@@ -54,7 +67,7 @@ const handleCheckboxChange = (event) => {
   }
 };
 
-generateCheckboxes();
+
 
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector('#button2');
@@ -174,19 +187,18 @@ function goWarehouse() {
 
 
 function listInventory() {
+  
+  makeSelfInvVisible();
   const inventoryList = document.querySelector('#selfInvList');
   inventoryList.innerHTML = ''; //Clear the current content
 
   if (selfInventory.length === 0) {
-    inventoryList.innerText = "You don't have anything in your inventory! What are you wearing??";
+    text.innerText = "You don't have anything in your inventory! What are you wearing??";
   } else {
-   selfInventory.forEach((item, index) => {
-    const listItem = document.createElement('div');
-    listItem.textContent = `${index +1}. ${item}`;
-    inventoryList.appendChild(listItem);
-   });
+    generateCheckboxesSelfInv();
+   }
   }
-}
+
 
 function addStorage() {
   //TODO When I checkbox an item, and then press a button, 
@@ -202,7 +214,9 @@ function moveCheckedItems() {
 
   checkedItems.forEach((item) => {
     const checkbox = inventoryList.querySelector(`input[value="${item}"]`);
-    console.log(checkbox.value)
+    console.log(checkbox.value);
+    storageInventory.push(checkbox.value);
+    console.log(storageInventory);
 
     if (checkbox) {
       // Create a label for the checkbox
@@ -242,13 +256,15 @@ function moveCheckedItems() {
 
 
 function listStorage() {
-  const storageList = document.querySelector('#newInvList');
-  storageList.innerHTML = ''; // Clear the current content
+  console.log("List Storage Items button clicked");
+  makeStorageInvVisible()
 
-  if (selfInventory.length === 0) {
-    storageList.innerText = "You don't have anything in storage!";
+
+  if (storageInventory.length === 0) {
+    text.innerText = "You don't have anything in storage!";
   } else {
-    selfInventory.forEach((item, index) => {
+    text.innerText = "You have " + storageInventory + " in your warehouse.";
+    storageInventory.forEach((item, index) => {
       const listItem = document.createElement('div');
       listItem.textContent = `${index + 1}. ${item}`;
 
@@ -258,10 +274,11 @@ function listStorage() {
       checkbox.value = item;
       listItem.appendChild(checkbox);
 
-      storageList.appendChild(listItem);
+      //storageInventory.appendChild(listItem);
     });
   }
 }
+
 
 
 function buyHealth() {

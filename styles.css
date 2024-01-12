@@ -2,11 +2,19 @@ body {
     background-color: #0a0a23;
   }
   
-  #text, #invText, #newInvText {
+  #text {
     background-color: #0a0a23;
     color: #ffffff;
     padding: 10px;
   }
+
+  #invText, #storageText {
+    display: none;
+    background-color: #0a0a23;
+    color: #ffffff;
+    padding: 10px;
+  }
+
   
   #game {
     max-width: 500px;
