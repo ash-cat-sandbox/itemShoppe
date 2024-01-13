@@ -1,12 +1,15 @@
 let charisma = 0;
+let xp = 0;
 let health = 100;
-let gold = 50;
+let gold = 150;
 let selfInventory = ['Leather Vest', 'Wheat Loaf', 'Apple'];
 let checkedItems = [];
 let storageInventory = [];
-let weapons = [];
+let weapons = ['stick'];
 let currentWeapon = 0;
 let _html = "";
+let fighting;
+let monsterHealth;
 
 function makeSelfInvVisible() {
   // Get Elements by ID
@@ -95,8 +98,6 @@ const handleCheckboxChange = (event) => {
   }
 };
 
-
-
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector('#button2');
 const button3 = document.querySelector('#button3');
@@ -109,24 +110,46 @@ const goldText = document.querySelector('#goldText');
 const monsterStats = document.querySelector('#monsterStats');
 const monsterName = document.querySelector('#monsterName');
 const monsterHealthText = document.querySelector('#monsterHealth');
-
+const weaponMarket =  [
+  { name: 'stick', power: 5 },
+  { name: 'dagger', power: 30 },
+  { name: 'claw hammer', power: 50 },
+  { name: 'sword', power: 100 }
+];
+const monsters = [
+  {
+    name: "slime",
+    level: 2,
+    health: 15
+  },
+  {
+    name: "fanged beast",
+    level: 8,
+    health: 60
+  },
+  {
+    name: "dragon",
+    level: 20,
+    health: 300
+  }
+]
 
 const locations = [
     {
         name: "town square",
-        "button text": ["Open your store", "Go to forest", "Go to the Market", "Go to the Warehouse"],
-        "button functions": [goStore, goForest, fightDragon, goWarehouse],
+        "button text": ["Go to Market", "Go to forest", "Open your Store", "Go to the Warehouse"],
+        "button functions": [goMarket, goForest, fightDragon, goWarehouse],
         text: "You are in the town square. You see a sign that says \"Store\" - oh wait, that's your store."
     },
     {
-        name: "store",
-        "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Go to town square"],
-        "button functions": [buyHealth, buyWeapon, goTown, goWarehouse],
-        text: "You enter your store."
+        name: "market",
+        "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Listen to Gossip", "Go to town square"],
+        "button functions": [buyHealth, buyWeapon, goTown, goTown],
+        text: "You enter the bustling market."
     },
     {
         name: "forest",
-        "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
+        "button text": ["Fight slime", "Fight fanged beast", "Go to town square", "Go to your warehouse"],
         "button functions": [fightSlime, fightBeast, goTown, goWarehouse],
         text: "You enter the Forest. You see some monsters."
     },
@@ -138,8 +161,8 @@ const locations = [
     },
     {
         name: "fight",
-        "button text": ["Attack", "Dodge", "Run"],
-        "button functions": [attack, dodge, goTown],
+        "button text": ["Attack", "Dodge", "Run", ""],
+        "button functions": [attack, dodge, goTown, goTown],
         text: "You are fighting a monster."
     },
     {
@@ -169,9 +192,9 @@ const locations = [
 ];
 
 // initialize buttons
-button1.onclick = goStore;
+button1.onclick = goMarket;
 button2.onclick = goForest;
-button3.onclick = fightDragon;
+button3.onclick = openStore;
 button4.onclick = goWarehouse;
 buttonInv.onclick = listInventory;
 
@@ -200,7 +223,7 @@ function goTown() {
   update(locations[0]);
 }
 
-function goStore() {
+function goMarket() {
   update(locations[1]);
 }
 
@@ -211,7 +234,6 @@ function goForest() {
 function goWarehouse() {
   update(locations[3]);
 }
-
 
 function listInventory() {
   
@@ -370,12 +392,14 @@ function buyHealth() {
 }
 
 function buyWeapon() {
-  if (currentWeapon < weapons.length - 1) {
+  console.log(weaponMarket.length);
+  if (currentWeapon < weaponMarket.length - 1) {
     if (gold >= 30) {
       gold -= 30;
       currentWeapon++;
       goldText.innerText = gold;
-      let newWeapon = weapons[currentWeapon].name;
+      let newWeapon = weaponMarket[currentWeapon];
+      console.log(newWeapon);
       text.innerText = "You now have a " + newWeapon + ".";
       weapons.push(newWeapon);
       text.innerText += " In your weapons inventory you have: " + weapons;
@@ -426,7 +450,7 @@ function goFight() {
 
 function attack() {
   text.innerText = "The " + monsters[fighting].name + " attacks.";
-  text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
+  text.innerText += " You attack it with your " + weaponMarket[currentWeapon].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
   if (isMonsterHit()) {
     monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
