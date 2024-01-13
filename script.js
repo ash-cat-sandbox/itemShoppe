@@ -168,7 +168,7 @@ const locations = [
     {
         name: "kill monster",
         "button text": ["Go to town square", "Go to town square", "Go to town square"],
-        "button functions": [goTown, goTown, easterEgg],
+        "button functions": [goTown, goTown, goTown, goTown],
         text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
     },
     {
@@ -194,7 +194,7 @@ const locations = [
 // initialize buttons
 button1.onclick = goMarket;
 button2.onclick = goForest;
-button3.onclick = openStore;
+button3.onclick = goWarehouse;//openStore;
 button4.onclick = goWarehouse;
 buttonInv.onclick = listInventory;
 
@@ -453,7 +453,7 @@ function attack() {
   text.innerText += " You attack it with your " + weaponMarket[currentWeapon].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
   if (isMonsterHit()) {
-    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
+    monsterHealth -= weaponMarket[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
   } else {
     text.innerText += " You miss.";
   }
