@@ -1,13 +1,12 @@
 import './script.js';
 import './market.js';
-import './player.js';
+import {currentWeapon, health, xp, gold} from './player.js';
 import './combat.js';
 import './storage.js';
 import './inventory.js';
 import './checkboxes.js';
 import {update, locations} from './location.js';
-import {monsterHealthText} from './interaction.js';
-
+import {button1, monsterHealthText, healthText, goldText} from './interaction.js';
 
 export let fighting;
 export let monsterHealth;
