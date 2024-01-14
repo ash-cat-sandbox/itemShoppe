@@ -1,6 +1,6 @@
 import './script.js';
 import './market.js';
-import { selfInventory, checkedItems, storageInventory } from './player.js';
+import { player } from './player.js';
 import './combat.js';
 import  './storage.js';
 import './inventory.js';
@@ -13,17 +13,17 @@ export const generateCheckboxesSelfInv = () => {
     // Create a document fragment to hold checkboxes before appending to the DOM
     const fragment = document.createDocumentFragment();
   
-    for (let i = 0; i < selfInventory.length; i++) {
+    for (let i = 0; i < player.selfInventory.length; i++) {
       //create checkbox input element
       const checkboxInv = document.createElement('input');
       checkboxInv.type = 'checkbox';
       checkboxInv.id = `item${i}`;
-      checkboxInv.value = selfInventory[i];
+      checkboxInv.value = player.selfInventory[i];
   
       // Create a label for the checkbox
       const chkLabel = document.createElement('label');
       chkLabel.htmlFor = `item${i}`;
-      chkLabel.appendChild(document.createTextNode(selfInventory[i]));
+      chkLabel.appendChild(document.createTextNode(player.selfInventory[i]));
   
       // Create a line break
       const lineBreak = document.createElement('br');
@@ -43,17 +43,17 @@ export const generateCheckboxesStorageInv = () => {
     // Create a document fragment to hold checkboxes before appending to the DOM
     const fragment = document.createDocumentFragment();
   
-    for (let i = 0; i < storageInventory.length; i++) {
+    for (let i = 0; i < player.storageInventory.length; i++) {
       //create checkbox input element
       const checkboxInv = document.createElement('input');
       checkboxInv.type = 'checkbox';
       checkboxInv.id = `item${i}`;
-      checkboxInv.value = storageInventory[i];
+      checkboxInv.value = player.storageInventory[i];
   
       // Create a label for the checkbox
       const chkLabel = document.createElement('label');
       chkLabel.htmlFor = `item${i}`;
-      chkLabel.appendChild(document.createTextNode(storageInventory[i]));
+      chkLabel.appendChild(document.createTextNode(player.storageInventory[i]));
   
       // Create a line break
       const lineBreak = document.createElement('br');
@@ -72,13 +72,13 @@ export const generateCheckboxesStorageInv = () => {
 export const handleCheckboxChange = (event) => {
     const value = event.target.value;
     if (event.target.checked) {
-      checkedItems.push(value);
-      console.log(`Item ${value} checked:`, checkedItems);
+      player.checkedItems.push(value);
+      console.log(`Item ${value} checked:`, player.checkedItems);
     } else {
-      const index = checkedItems.indexOf(value);
+      const index = player.checkedItems.indexOf(value);
       if (index !== -1) {
-        checkedItems.splice(index, 1);
-        console.log(`Item ${value} unchecked:`, checkedItems);
+        player.checkedItems.splice(index, 1);
+        console.log(`Item ${value} unchecked:`, player.checkedItems);
       }
     }
   };

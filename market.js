@@ -1,7 +1,7 @@
 import './script.js';
 import './market.js';
-import './player.js';
-import './combat.js';
+import {player} from './player.js';
+import {weaponMarket} from './combat.js';
 import './storage.js';
 import './inventory.js';
 import './checkboxes.js';
@@ -11,11 +11,11 @@ import './interaction.js';
 
 
 export function buyHealth() {
-    if (gold >= 10) {
-      gold -= 10;
-      health += 10;
-      goldText.innerText = gold;
-      healthText.innerText = health;
+    if (player.gold >= 10) {
+        player.gold -= 10;
+        player.health += 10;
+      goldText.innerText = player.gold;
+      healthText.innerText = player.health;
     } else {
       text.innerText = "You do not have enough gold to buy health.";
     }
@@ -23,16 +23,16 @@ export function buyHealth() {
   
  export function buyWeapon() {
     console.log(weaponMarket.length);
-    if (currentWeapon < weaponMarket.length - 1) {
-      if (gold >= 30) {
-        gold -= 30;
-        currentWeapon++;
-        goldText.innerText = gold;
-        let newWeapon = weaponMarket[currentWeapon];
+    if (player.currentWeapon < weaponMarket.length - 1) {
+      if (player.gold >= 30) {
+        player.gold -= 30;
+        player.currentWeapon++;
+        goldText.innerText = player.gold;
+        let newWeapon = weaponMarket[player.currentWeapon];
         console.log(newWeapon);
         text.innerText = "You now have a " + newWeapon + ".";
-        weapons.push(newWeapon);
-        text.innerText += " In your weapons inventory you have: " + weapons;
+        player.weapons.push(newWeapon);
+        text.innerText += " In your weapons inventory you have: " + player.weapons;
       } else {
         text.innerText = "You do not have enough gold to buy a weapon.";
       }
@@ -45,11 +45,11 @@ export function buyHealth() {
   
  export function sellWeapon() {
     if (weapons.length > 1) {
-      gold += 15;
-      goldText.innerText = gold;
-      let currentWeapon = weapons.shift();
+      player.gold += 15;
+      goldText.innerText = player.gold;
+      let currentWeapon = player.weapons.shift();
       text.innerText = "You sold a " + currentWeapon + ".";
-      text.innerText += " In your weapons inventory you have: " + weapons;
+      text.innerText += " In your weapons inventory you have: " + player.weapons;
     } else {
       text.innerText = "Don't sell your only weapon!";
     }

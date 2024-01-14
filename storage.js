@@ -3,7 +3,7 @@ import './market.js';
 import './combat.js';
 import './storage.js';
 import {makeSelfInvVisible, makeStorageInvVisible} from './inventory.js';
-import  {selfInventory, storageInventory, checkedItems} from './player.js';
+import  {player} from './player.js';
 import {generateCheckboxesSelfInv, generateCheckboxesStorageInv} from './checkboxes.js';
 import './location.js';
 import './interaction.js';
@@ -25,13 +25,13 @@ export function takeStorage() {
 export function moveCheckedItemsToInventory() {
     const inventoryList = document.querySelector('#selfInvList');
     const storageList = document.querySelector('#storageInvList');
-    console.log(checkedItems);
+    console.log(player.checkedItems);
   
-    checkedItems.forEach((item) => {
+    player.checkedItems.forEach((item) => {
       const checkbox = storageList.querySelector(`input[value="${item}"]`);
       console.log(checkbox.value);
-      selfInventory.push(checkbox.value);
-      console.log(selfInventory);
+      player.selfInventory.push(checkbox.value);
+      console.log(player.selfInventory);
   
       if (checkbox) {
         // Create a label for the checkbox
@@ -57,27 +57,27 @@ export function moveCheckedItemsToInventory() {
         listItem.appendChild(clonedLabel);
         inventoryList.appendChild(listItem);
   
-        const index = storageInventory.indexOf(item);
+        const index = player.storageInventory.indexOf(item);
   
         if (index !== -1) {
           // Remove the item from the selfInventory array
-          storageInventory.splice(index, 1);
+          player.storageInventory.splice(index, 1);
         }
       }
     });
   
-    checkedItems.length = 0; // Empty the checked items array after processing
+    player.checkedItems.length = 0; // Empty the checked items array after processing
   }
   
 export function moveCheckedItemsToStorage() {
     const inventoryList = document.querySelector('#selfInvList');
     const storageList = document.querySelector('#storageInvList');
   
-    checkedItems.forEach((item) => {
+    player.checkedItems.forEach((item) => {
       const checkbox = inventoryList.querySelector(`input[value="${item}"]`);
       console.log(checkbox.value);
-      storageInventory.push(checkbox.value);
-      console.log(storageInventory);
+      player.storageInventory.push(checkbox.value);
+      console.log(player.storageInventory);
   
       if (checkbox) {
         // Create a label for the checkbox
@@ -103,16 +103,16 @@ export function moveCheckedItemsToStorage() {
         listItem.appendChild(clonedLabel);
         storageList.appendChild(listItem);
   
-        const index = selfInventory.indexOf(item);
+        const index = player.selfInventory.indexOf(item);
   
         if (index !== -1) {
           // Remove the item from the selfInventory array
-          selfInventory.splice(index, 1);
+          player.selfInventory.splice(index, 1);
         }
       }
     });
   
-    checkedItems.length = 0; // Empty the checked items array after processing
+    player.checkedItems.length = 0; // Empty the checked items array after processing
   }
   
 export function listStorage() {
@@ -121,10 +121,10 @@ export function listStorage() {
     const storageInvList = document.querySelector('#storageInvList');
     storageInvList.innerHTML = '';
   
-    if (storageInventory.length === 0) {
+    if (player.storageInventory.length === 0) {
       text.innerText = "You don't have anything in storage!";
     } else {
-      text.innerText = "You have " + storageInventory + " in your warehouse.";
+      text.innerText = "You have " + player.storageInventory + " in your warehouse.";
       generateCheckboxesStorageInv();
       
     }
@@ -136,7 +136,7 @@ export function listInventory() {
   const inventoryList = document.querySelector('#selfInvList');
   inventoryList.innerHTML = ''; //Clear the current content
 
-  if (selfInventory.length === 0) {
+  if (player.selfInventory.length === 0) {
     text.innerText = "You don't have anything in your inventory! What are you wearing??";
   } else {
     generateCheckboxesSelfInv();

@@ -23,6 +23,8 @@ const text    = document.querySelector('#text');
 export {text};
 const charismaText = document.querySelector('#charismaText');
 export {charismaText};
+const xpText = document.querySelector('#xpText');
+export {xpText};
 const healthText   = document.querySelector('#healthText');
 export {healthText};
 const goldText = document.querySelector('#goldText');

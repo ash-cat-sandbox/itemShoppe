@@ -1,12 +1,12 @@
 import './script.js';
 import './market.js';
-import {currentWeapon, health, xp, gold} from './player.js';
+import {player} from './player.js';
 import './combat.js';
 import './storage.js';
 import './inventory.js';
 import './checkboxes.js';
 import {update, locations} from './location.js';
-import {button1, monsterHealthText, healthText, goldText} from './interaction.js';
+import {button1, monsterHealthText, healthText, goldText, xpText} from './interaction.js';
 
 export let fighting;
 export let monsterHealth;
@@ -62,34 +62,34 @@ export function goFight() {
   
 export function attack() {
     text.innerText = "The " + monsters[fighting].name + " attacks.";
-    text.innerText += " You attack it with your " + weaponMarket[currentWeapon].name + ".";
-    health -= getMonsterAttackValue(monsters[fighting].level);
+    text.innerText += " You attack it with your " + weaponMarket[player.currentWeapon].name + ".";
+    player.health -= getMonsterAttackValue(monsters[fighting].level);
     if (isMonsterHit()) {
-      monsterHealth -= weaponMarket[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
+      monsterHealth -= weaponMarket[player.currentWeapon].power + Math.floor(Math.random() * player.xp) + 1;    
     } else {
       text.innerText += " You miss.";
     }
-    healthText.innerText = health;
+    healthText.innerText = player.health;
     monsterHealthText.innerText = monsterHealth;
-    if (health <= 0) {
+    if (player.health <= 0) {
       lose();
     } else if (monsterHealth <= 0) {
       fighting === 2 ? winGame() : defeatMonster();
     }
-    if (Math.random() <= .1 && weapons.length !== 1) {
-      text.innerText += " Your " + weapons.pop() + " breaks.";
-      currentWeapon--;
+    if (Math.random() <= .1 && player.weapons.length !== 1) {
+      text.innerText += " Your " + player.weapons.pop() + " breaks.";
+      player.currentWeapon--;
     }
   }
   
   function getMonsterAttackValue(level) {
-    const hit = (level * 5) - (Math.floor(Math.random() * xp));
+    const hit = (level * 5) - (Math.floor(Math.random() * player.xp));
     console.log(hit);
     return hit > 0 ? hit : 0;
   }
   
   function isMonsterHit() {
-    return Math.random() > .2 || health < 20;
+    return Math.random() > .2 || player.health < 20;
   }
   
 export function dodge() {
@@ -97,10 +97,10 @@ export function dodge() {
   }
   
 export function defeatMonster() {
-    gold += Math.floor(monsters[fighting].level * 6.7);
-    xp += monsters[fighting].level;
-    goldText.innerText = gold;
-    xpText.innerText = xp;
+    player.gold += Math.floor(monsters[fighting].level * 6.7);
+    player.xp += monsters[fighting].level;
+    goldText.innerText = player.gold;
+    xpText.innerText = player.xp;
     update(locations[5]);
   }
 
