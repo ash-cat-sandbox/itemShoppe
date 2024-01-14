@@ -1,9 +1,9 @@
 import './script.js';
 import './market.js';
-import  {selfInventory} from './player.js';
 import './combat.js';
 import './storage.js';
 import {makeSelfInvVisible, makeStorageInvVisible} from './inventory.js';
+import  {selfInventory, storageInventory, checkedItems} from './player.js';
 import {generateCheckboxesSelfInv, generateCheckboxesStorageInv} from './checkboxes.js';
 import './location.js';
 import './interaction.js';
@@ -25,6 +25,7 @@ export function takeStorage() {
 export function moveCheckedItemsToInventory() {
     const inventoryList = document.querySelector('#selfInvList');
     const storageList = document.querySelector('#storageInvList');
+    console.log(checkedItems);
   
     checkedItems.forEach((item) => {
       const checkbox = storageList.querySelector(`input[value="${item}"]`);
@@ -125,17 +126,6 @@ export function listStorage() {
     } else {
       text.innerText = "You have " + storageInventory + " in your warehouse.";
       generateCheckboxesStorageInv();
-      /*storageInventory.forEach((item, index) => {
-        const listItem = document.createElement('div');
-        listItem.textContent = `${index + 1}. ${item}`;
-  
-        // Create a checkbox for each item in the storage list
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.value = item;
-        listItem.appendChild(checkbox);*/
-  
-        //storageInventory.appendChild(listItem);
       
     }
   }

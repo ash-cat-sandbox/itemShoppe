@@ -5,7 +5,7 @@ import './script.js';
 import './market.js';
 import './player.js';
 import './combat.js';
-import {listInventory} from './storage.js';
+import {listInventory, listStorage} from './storage.js';
 import './inventory.js';
 import './checkboxes.js';
 import {goMarket, goForest, goWarehouse} from './location.js';

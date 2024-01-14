@@ -1,4 +1,4 @@
-import {} from './script.js';
+import './script.js';
 import './market.js';
 import './player.js';
 import './combat.js';

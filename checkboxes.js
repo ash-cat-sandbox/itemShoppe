@@ -1,6 +1,6 @@
 import './script.js';
 import './market.js';
-import { selfInventory } from './player.js';
+import { selfInventory, checkedItems, storageInventory } from './player.js';
 import './combat.js';
 import  './storage.js';
 import './inventory.js';

@@ -5,8 +5,8 @@ import './combat.js';
 import './storage.js';
 import './inventory.js';
 import './checkboxes.js';
-import './location.js';
-import './interaction.js';
+import {update, locations} from './location.js';
+import {monsterHealthText} from './interaction.js';
 
 
 export let fighting;

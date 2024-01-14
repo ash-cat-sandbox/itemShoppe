@@ -60,7 +60,7 @@ const locations = [
         text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!"
     }
 ];
-
+export {locations};
 export function update(location) {
     const buttonFunctions = location["button functions"];
   
