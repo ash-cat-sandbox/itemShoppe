@@ -1,0 +1,37 @@
+import './script.js';
+import './market.js';
+import './player.js';
+import './combat.js';
+import './storage.js';
+import './inventory.js';
+import './checkboxes.js';
+import './location.js';
+import './interaction.js';
+
+
+const button1 = document.querySelector('#button1');
+export {button1};
+const button2 = document.querySelector('#button2');
+export {button2};
+const button3 = document.querySelector('#button3');
+export {button3};
+const button4 = document.querySelector('#button4');
+export {button4};
+const buttonInv = document.querySelector('#buttonInv');
+export {buttonInv};
+const text    = document.querySelector('#text');
+export {text};
+const charismaText = document.querySelector('#charismaText');
+export {charismaText};
+const xpText = document.querySelector('#xpText');
+export {xpText};
+const healthText   = document.querySelector('#healthText');
+export {healthText};
+const goldText = document.querySelector('#goldText');
+export {goldText};
+const monsterStats = document.querySelector('#monsterStats');
+export {monsterStats};
+const monsterName = document.querySelector('#monsterName');
+export {monsterName};
+const monsterHealthText = document.querySelector('#monsterHealth');
+export {monsterHealthText};
