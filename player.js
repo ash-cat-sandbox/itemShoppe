@@ -23,12 +23,14 @@ export const player = {
 
 
 export function restart() {
-  charisma = 0;
-  health = 100;
-  gold = 50;
-  selfInventory = ['Leather Vest', 'Wheat Loaf', 'Apple'];
-  storageInventory = [];
-  weapons = [];
-  currentWeapon = 0;
+  player.charisma = 0;
+  player.xp = 0;
+  player.health = 100;
+  player.gold = 50;
+  player.selfInventory = ['Leather Vest', 'Wheat Loaf', 'Apple'];
+  player.weapons = ['stick'];
+  player.storageInventory = [];
+  player.checkedItems = [];
+  player.currentWeapon = 0;
 }
 
