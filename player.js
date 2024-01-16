@@ -5,8 +5,9 @@ import {attack} from './combat.js';
 import './storage.js';
 import './inventory.js';
 import './checkboxes.js';
-import './location.js';
+import {update, locations} from './location.js';
 import './interaction.js';
+import { charismaText, healthText, xpText } from './interaction.js';
 
 
 export const player = {
@@ -14,6 +15,7 @@ export const player = {
     xp: 0,
     health: 100,
     gold: 150,
+    weight: 0,
     weapons: ['stick'],
     currentWeapon: 0,
     selfInventory: ['Leather Vest', 'Wheat Loaf', 'Apple'],
@@ -23,14 +25,22 @@ export const player = {
 
 
 export function restart() {
+  update(locations[0]);
   player.charisma = 0;
+  charismaText.innerText = player.charisma;
   player.xp = 0;
+  xpText.innerText = player.xp;
   player.health = 100;
-  player.gold = 50;
+  healthText.innerText = player.health;
+  player.gold = 150;
+  goldText.innerText = player.gold;
+  player.weight = 0;
+  weightText.innerText = player.weight;
   player.selfInventory = ['Leather Vest', 'Wheat Loaf', 'Apple'];
   player.weapons = ['stick'];
   player.storageInventory = [];
   player.checkedItems = [];
   player.currentWeapon = 0;
+
 }
 

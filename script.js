@@ -3,18 +3,18 @@
 
 import './script.js';
 import './market.js';
-import './player.js';
+import {player} from './player.js';
 import './combat.js';
 import {listInventory, listStorage} from './storage.js';
 import './inventory.js';
 import './checkboxes.js';
 import {goMarket, goForest, goWarehouse} from './location.js';
-import './interaction.js';
+import {text, charismaText, xpText, healthText, goldText} from './interaction.js';
 
 
 
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Before initializing buttons');
+  console.log('Before initialization');
   
   // Initialize buttons
   button1.onclick = goMarket;
@@ -22,8 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
   button3.onclick = goWarehouse; // openStore;
   button4.onclick = goWarehouse;
   buttonInv.onclick = listInventory;
-
-  console.log('After initializing buttons');
+  console.log('After initialization');
 });
 
 export function easterEgg() {

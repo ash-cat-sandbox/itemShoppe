@@ -1,7 +1,7 @@
 import {buyHealth, buyWeapon, sellWeapon} from './market.js'; 
 import {addStorage, listStorage, takeStorage} from './storage.js';
 import {fightSlime, fightBeast, attack, dodge} from './combat.js';
-import {restart} from './player.js';
+import {restart, player} from './player.js';
 import {pickTwo, pickEight} from './script.js';
 
 const locations = [
