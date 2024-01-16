@@ -106,6 +106,7 @@ export function defeatMonster() {
 
  
 function lose() {
+  
   update(locations[6]);
 }
 
