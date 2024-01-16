@@ -22,17 +22,26 @@ export const monsters = [
     {
       name: "slime",
       level: 2,
-      health: 15
+      health: 15,
+      common: "goo",
+      rare: "polishing paste",
+      legendary: "topaz"
     },
     {
       name: "fanged beast",
       level: 8,
-      health: 60
+      health: 60,
+      common: "fur",
+      rare: "leather",
+      legendary: "ivory"
     },
     {
       name: "dragon",
       level: 20,
-      health: 300
+      health: 300,
+      common: "scales",
+      rare: "dragonbone",
+      legendary: "diamond"
     }
 ]
 
@@ -74,7 +83,7 @@ export function attack() {
     if (player.health <= 0) {
       lose();
     } else if (monsterHealth <= 0) {
-      fighting === 2 ? winGame() : defeatMonster();
+       defeatMonster();
     }
     if (Math.random() <= .1 && player.weapons.length !== 1) {
       text.innerText += " Your " + player.weapons.pop() + " breaks.";
@@ -95,10 +104,24 @@ export function attack() {
 export function dodge() {
     text.innerText = "You dodge the attack from the " + monsters[fighting].name;
   }
+
+export function loot() {
+  return Math.floor(Math.random() * 100);
+}
   
 export function defeatMonster() {
     player.gold += Math.floor(monsters[fighting].level * 6.7);
     player.xp += monsters[fighting].level;
+    if (loot() > 90) {
+      player.selfInventory.push(monsters[fighting].legendary);
+      text.innerText += "You get " + monsters[fighting].legendary;
+    } else if (loot() > 60) {
+      player.selfInventory.push(monsters[fighting].rare);
+      text.innerText += "You get " + monsters[fighting].rare;
+    } else {
+      player.selfInventory.push(monsters[fighting].common);
+      text.innerText += "You get " + monsters[fighting].common;
+    }
     goldText.innerText = player.gold;
     xpText.innerText = player.xp;
     update(locations[5]);
