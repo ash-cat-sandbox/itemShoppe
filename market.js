@@ -30,9 +30,10 @@ export function buyHealth() {
         goldText.innerText = player.gold;
         let newWeapon = weaponMarket[player.currentWeapon];
         console.log(newWeapon);
-        text.innerText = "You now have a " + newWeapon + ".";
+        text.innerText = "You now have a " + newWeapon.name + ".";
         player.weapons.push(newWeapon);
-        text.innerText += " In your weapons inventory you have: " + player.weapons;
+        console.log(player.weapons);
+        text.innerText += " In your weapons inventory, you have: " + player.weapons.map(weapon => weapon.name).join(', ');
       } else {
         text.innerText = "You do not have enough gold to buy a weapon.";
       }
@@ -49,7 +50,7 @@ export function buyHealth() {
       goldText.innerText = player.gold;
       let currentWeapon = player.weapons.shift();
       text.innerText = "You sold a " + currentWeapon + ".";
-      text.innerText += " In your weapons inventory you have: " + player.weapons;
+      text.innerText += " In your weapons inventory you have: " + player.weapons.map(weapon => weapon.name).join(', ');
     } else {
       text.innerText = "Don't sell your only weapon!";
     }

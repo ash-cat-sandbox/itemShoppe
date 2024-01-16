@@ -1,7 +1,7 @@
 import './script.js';
 import './market.js';
 import './player.js';
-import {attack} from './combat.js';
+import {weaponMarket} from './combat.js';
 import './storage.js';
 import './inventory.js';
 import './checkboxes.js';
@@ -16,7 +16,7 @@ export const player = {
     health: 100,
     gold: 150,
     weight: 0,
-    weapons: ['stick'],
+    weapons: [weaponMarket[0]],
     currentWeapon: 0,
     selfInventory: ['Leather Vest', 'Wheat Loaf', 'Apple'],
     checkedItems: [],
