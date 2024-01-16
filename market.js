@@ -55,4 +55,7 @@ export function buyHealth() {
       text.innerText = "Don't sell your only weapon!";
     }
   }
+
+export function listenGossip() {
+}
   
