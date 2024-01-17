@@ -22,13 +22,13 @@ const locations = [
         "button text": ["Fight slime", "Fight fanged beast", "Go to town square", "Go to your warehouse"],
         "button functions": [fightSlime, fightBeast, goTown, goWarehouse],
         text: "You enter the Forest. You see some monsters.",
-       // extra: "Extra Text goes here"
+        
     },
     {
-      name: "warehouse",
-      "button text": ["List Storage items", "Take from Storage", "Add to Storage", "Go to Town Square"],
-      "button functions": [listStorage, takeStorage, addStorage, goTown],
-      text: "You enter the warehouse where you store your goods."
+        name: "warehouse",
+        "button text": ["List Storage items", "Take from Storage", "Add to Storage", "Go to Town Square"],
+        "button functions": [listStorage, takeStorage, addStorage, goTown],
+        text: "You enter the warehouse where you store your goods."
     },
     {
         name: "fight",
@@ -40,7 +40,8 @@ const locations = [
         name: "kill monster",
         "button text": ["Go to town square", "Go to town square", "Go to town square"],
         "button functions": [goTown, goTown, goTown, goTown],
-        text: 'The monster screams "Arg!" as it dies. You gain experience points, gold and loot.'
+        text: 'The monster screams "Arg!" as it dies. You gain experience points, gold and loot.',
+        extra: "Extra Text goes here"
     },
     {
         name: "lose",
