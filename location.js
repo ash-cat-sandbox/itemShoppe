@@ -21,7 +21,8 @@ const locations = [
         name: "forest",
         "button text": ["Fight slime", "Fight fanged beast", "Go to town square", "Go to your warehouse"],
         "button functions": [fightSlime, fightBeast, goTown, goWarehouse],
-        text: "You enter the Forest. You see some monsters."
+        text: "You enter the Forest. You see some monsters.",
+       // extra: "Extra Text goes here"
     },
     {
       name: "warehouse",

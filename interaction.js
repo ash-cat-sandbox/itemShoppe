@@ -21,6 +21,8 @@ const buttonInv = document.querySelector('#buttonInv');
 export {buttonInv};
 const text    = document.querySelector('#text');
 export {text};
+const extraText    = document.querySelector('#extra');
+export {extraText};
 const charismaText = document.querySelector('#charismaText');
 export {charismaText};
 const xpText = document.querySelector('#xpText');

@@ -23,25 +23,79 @@ export const monsters = [
       name: "slime",
       level: 2,
       health: 15,
-      common: "goo",
-      rare: "polishing paste",
-      legendary: "topaz"
+      common: [
+        {
+          name: "goo",
+          type: "material",
+          price: 15
+        }
+      ],
+      rare: [
+        {
+          name: "polishing paste",
+          type: "misc",
+          price: 50
+        }
+      ],
+      legendary: [
+        {
+          name: "topaz",
+          type: "gem",
+          price: 75
+        }
+      ]
     },
     {
       name: "fanged beast",
       level: 8,
       health: 60,
-      common: "fur",
-      rare: "leather",
-      legendary: "ivory"
+      common: [
+        {
+          name: "fur",
+          type: "material",
+          price: 50
+        }
+      ],
+      rare: [
+        {
+          name: "leather",
+          type: "material",
+          price: 75
+        }
+      ],
+      legendary: [
+        {
+          name: "ivory",
+          type: "gem",
+          price: 150
+        }
+      ]
     },
     {
       name: "dragon",
       level: 20,
       health: 300,
-      common: "scales",
-      rare: "dragonbone",
-      legendary: "diamond"
+      common: [
+        {
+          name: "scales",
+          type: "material",
+          price: 150
+        }
+      ],
+      rare: [
+        {
+          name: "dragonbone",
+          type: "material",
+          price: 500
+        }
+      ],
+      legendary: [
+        {
+          name: "diamond",
+          type: "gem",
+          price: 1000
+        }
+      ]
     }
 ]
 
@@ -113,14 +167,14 @@ export function defeatMonster() {
     player.gold += Math.floor(monsters[fighting].level * 6.7);
     player.xp += monsters[fighting].level;
     if (loot() > 90) {
-      player.selfInventory.push(monsters[fighting].legendary);
-      text.innerText += "You get " + monsters[fighting].legendary;
+      player.selfInventory.push(monsters[fighting].legendary[fighting].name);
+      text.innerText += "You get " + monsters[fighting].legendary[fighting].name;
     } else if (loot() > 60) {
-      player.selfInventory.push(monsters[fighting].rare);
-      text.innerText += "You get " + monsters[fighting].rare;
+      player.selfInventory.push(monsters[fighting].rare[fighting].name);
+      text.innerText += "You get " + monsters[fighting].rare[fighting].name;
     } else {
-      player.selfInventory.push(monsters[fighting].common);
-      text.innerText += "You get " + monsters[fighting].common;
+      player.selfInventory.push(monsters[fighting].common[fighting].name);
+      text.innerText += "You get " + monsters[fighting].common[fighting].name;
     }
     goldText.innerText = player.gold;
     xpText.innerText = player.xp;
