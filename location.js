@@ -9,7 +9,8 @@ const locations = [
         name: "town square",
         "button text": ["Go to Market", "Go to forest", "Open your Store", "Go to the Warehouse"],
         "button functions": [goMarket, goForest, goTown, goWarehouse],
-        text: "You are in the town square. You see a sign that says \"Store\" - oh wait, that's your store."
+        text: "You are in the town square. You see a sign that says \"Store\" - oh wait, that's your store.",
+        extra: ""
     },
     {
         name: "market",

@@ -168,13 +168,13 @@ export function defeatMonster() {
     player.xp += monsters[fighting].level;
     if (loot() > 90) {
       player.selfInventory.push(monsters[fighting].legendary[fighting].name);
-      extraText.innerText += "You get " + monsters[fighting].legendary[fighting].name;
+     // extraText.innerText += "You get " + monsters[fighting].legendary[fighting].name;
     } else if (loot() > 60) {
       player.selfInventory.push(monsters[fighting].rare[fighting].name);
-      extraText.innerText += "You get " + monsters[fighting].rare[fighting].name;
+      //extraText.innerText += "You get " + monsters[fighting].rare[fighting].name;
     } else {
       player.selfInventory.push(monsters[fighting].common[fighting].name);
-      extraText.innerText += "You get " + monsters[fighting].common[fighting].name;
+      //extraText.innerText += "You get " + monsters[fighting].common[fighting].name;
     }
     goldText.innerText = player.gold;
     xpText.innerText = player.xp;
